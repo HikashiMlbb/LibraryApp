@@ -1,4 +1,5 @@
 using LibraryApp.Domain.Entities;
+using LibraryApp.Domain.ValueObjects;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -14,9 +15,11 @@ public class BookConfiguration : IEntityTypeConfiguration<Book>
         builder.OwnsOne(x => x.Header, opt =>
         {
             opt.Property(y => y.Title)
+                .HasMaxLength(BookHeader.MaxTitleLength)
                 .HasColumnName("Title")
                 .IsRequired();
             opt.Property(y => y.Description)
+                .HasMaxLength(BookHeader.MaxDescriptionLength)
                 .HasColumnName("Description")
                 .IsRequired(false);
         });

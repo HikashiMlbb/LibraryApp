@@ -2,6 +2,9 @@ namespace LibraryApp.Domain.Entities;
 
 public sealed class Author
 {
+    public const int MaxNameLength = 30;
+    public const int MinNameLength = 3;
+    
     public Guid Id { get; set; }
     public string Name { get; set; }
     public ICollection<Book> Books { get; set; }
