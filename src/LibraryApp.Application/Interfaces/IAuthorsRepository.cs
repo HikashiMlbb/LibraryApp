@@ -12,4 +12,5 @@ public interface IAuthorsRepository
     public Result<Author> GetByBookId(Guid id);
     public Result Update(Author author);
     public Result Delete(Author author);
+    public Result IsNameUnique(string name);
 }

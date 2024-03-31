@@ -1,3 +1,5 @@
+using Carter;
+using LibraryApp.API.Extensions;
 using LibraryApp.Application;
 using LibraryApp.Infrastructure;
 using LibraryApp.Infrastructure.Data;
@@ -7,6 +9,10 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddApplication();
 builder.Services.AddInfrastructure(builder.Configuration);
+
+builder.Services.AddCarter();
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
@@ -26,4 +32,6 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+app.UseValidationExceptionHandler();
+app.MapCarter();
 app.Run();
