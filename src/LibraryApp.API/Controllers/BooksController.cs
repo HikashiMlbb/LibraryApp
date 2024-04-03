@@ -38,7 +38,7 @@ public sealed class BooksController(IMediator mediator) : ControllerBase
         }
 
         return result.Value!.Any()
-            ? Results.Ok(result)
+            ? Results.Ok(result.Value)
             : Results.NoContent();
     }
     /// <summary>
