@@ -29,4 +29,9 @@ public sealed class Result
     {
         return new Result(error);
     }
+    
+    public static implicit operator Result(Error error)
+    {
+        return Failure(error);
+    }
 }

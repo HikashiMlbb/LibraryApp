@@ -3,7 +3,7 @@ using MediatR;
 
 namespace LibraryApp.Application.Books.Commands.Add;
 
-public class AddBookCommand : IRequest<Result>
+public sealed class AddBookCommand : IRequest<Result>
 {
     public string Title { get; set; }
     public string? Description { get; set; }

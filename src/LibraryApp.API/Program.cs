@@ -3,16 +3,19 @@ using LibraryApp.API.Extensions;
 using LibraryApp.Application;
 using LibraryApp.Infrastructure;
 using LibraryApp.Infrastructure.Data;
+using LibraryApp.Persistence;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddApplication();
 builder.Services.AddInfrastructure(builder.Configuration);
+builder.Services.AddPersistence();
 
 builder.Services.AddCarter();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddControllers();
 
 var app = builder.Build();
 
@@ -34,4 +37,5 @@ if (app.Environment.IsDevelopment())
 
 app.UseValidationExceptionHandler();
 app.MapCarter();
+app.MapControllers();
 app.Run();

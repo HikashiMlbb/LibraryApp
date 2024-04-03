@@ -1,11 +1,22 @@
+using LibraryApp.Application.Common.Errors;
+using LibraryApp.Application.Common.Interfaces;
+using LibraryApp.Domain.Shared;
 using MediatR;
 
 namespace LibraryApp.Application.Books.Commands.Delete;
 
-public class DeleteBookCommandHandler : IRequestHandler<DeleteBookCommand>
+public sealed class DeleteBookCommandHandler(IUnitOfWork uow) : IRequestHandler<DeleteBookCommand, Result>
 {
-    public Task Handle(DeleteBookCommand request, CancellationToken cancellationToken)
+    public async Task<Result> Handle(DeleteBookCommand request, CancellationToken cancellationToken)
     {
-        throw new NotImplementedException();
+        var book = await uow.Books.GetByIdAsync(request.Id, cancellationToken);
+        if (book is null)
+        {
+            return BookErrors.IdNotFound;
+        }
+        
+        uow.Books.Delete(book);
+        await uow.CompleteAsync(cancellationToken);
+        return Result.Success();
     }
 }

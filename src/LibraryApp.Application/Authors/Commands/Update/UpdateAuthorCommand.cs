@@ -1,8 +1,12 @@
+using LibraryApp.Domain.Shared;
 using MediatR;
 
 namespace LibraryApp.Application.Authors.Commands.Update;
 
-public class UpdateAuthorCommand : IRequest
+public sealed class UpdateAuthorCommand : IRequest<Result>
 {
-    
+    public Guid Id { get; set; }
+    public string? Name { get; set; }
+    public IReadOnlyCollection<Guid> Books { get; set; } = new List<Guid>();
+    public DateTime? BirthDay { get; set; }
 }

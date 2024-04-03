@@ -5,7 +5,7 @@ using FluentValidation.Results;
 
 namespace LibraryApp.API.Middlewares;
 
-public class ValidationExceptionHandlerMiddleware(RequestDelegate next)
+public sealed class ValidationExceptionHandlerMiddleware(RequestDelegate next)
 {
     public async Task Invoke(HttpContext context)
     {
@@ -21,10 +21,14 @@ public class ValidationExceptionHandlerMiddleware(RequestDelegate next)
                     exception.Errors.Select(x 
                         => new { Property = x.PropertyName, Message = x.ErrorMessage, Code = x.ErrorCode }));
 
+            var result2 = JsonSerializer.Serialize(
+                exception.Errors.Select(x =>
+                    new { Property = x.PropertyName, Message = x.ErrorMessage, Code = x.ErrorCode }).First());
+
             context.Response.ContentType = "application/json";
             context.Response.StatusCode = (int)code;
 
-            await context.Response.WriteAsync(result);
+            await context.Response.WriteAsync(result2);
         }
     }
 }

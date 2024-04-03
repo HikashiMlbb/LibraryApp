@@ -32,4 +32,9 @@ public sealed class Result<T>
     {
         return new Result<T>(error);
     }
+
+    public static implicit operator Result<T>(Error error)
+    {
+        return Failure(error);
+    }
 }
