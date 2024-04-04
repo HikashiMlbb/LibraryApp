@@ -20,7 +20,7 @@ dotnet restore
 3. Go to the `src\LibraryApp.Infrastructure\DependencyInjection.cs` and replace value of `const string DefaultConnection` to your own.
 4. Create the database using cli command:
 ```bash
-dotnet ef database update
+dotnet ef database update -p src\LibraryApp.Infrastructure -s src\LibraryApp.API
 ```
 ## Running
 Execute cli command:
