@@ -12,4 +12,6 @@ public interface IAuthorsRepository
     public void Update(Author author);
     public void Delete(Author author);
     public bool IsNameUnique(string name);
+    public void Attach(Author author);
+    public void Attach(IEnumerable<Author> authors);
 }

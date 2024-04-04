@@ -36,7 +36,8 @@ public sealed class AddAuthorCommandHandler(IUnitOfWork uow) : IRequestHandler<A
                 
                 books.Add(foundBook);
             }
-
+            
+            uow.Books.Attach(books);
             author.Books = books;
         }
 
