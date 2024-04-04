@@ -15,7 +15,7 @@ public class AuthorsRepository(LibraryDatabaseContext db) : IAuthorsRepository
     public async Task<IEnumerable<Author>> GetAllAsync(CancellationToken token = default)
     {
         return await db.Authors
-            //.AsNoTracking()
+            .AsNoTracking()
             .Include(x => x.Books)
             .ToListAsync(token);
     }
@@ -23,7 +23,7 @@ public class AuthorsRepository(LibraryDatabaseContext db) : IAuthorsRepository
     public async Task<Author?> GetByIdAsync(Guid id, CancellationToken token = default)
     {
         return await db.Authors
-            //.AsNoTracking()
+            .AsNoTracking()
             .Include(x => x.Books)
             .SingleOrDefaultAsync(x => x.Id == id, token);
     }
@@ -31,7 +31,7 @@ public class AuthorsRepository(LibraryDatabaseContext db) : IAuthorsRepository
     public async Task<Author?> GetByNameAsync(string name, CancellationToken token = default)
     {
         return await db.Authors
-            //.AsNoTracking()
+            .AsNoTracking()
             .Include(x => x.Books)
             .SingleOrDefaultAsync(x => x.Name == name, token);
     }
@@ -39,7 +39,7 @@ public class AuthorsRepository(LibraryDatabaseContext db) : IAuthorsRepository
     public async Task<Author?> GetByBookIdAsync(Guid id, CancellationToken token = default)
     {
         return await db.Authors
-            //.AsNoTracking()
+            .AsNoTracking()
             .Include(x => x.Books.Where(y => y.Id == id))
             .SingleOrDefaultAsync(x => x.Books.Any(y => y.Id == id), token);
     }
@@ -75,5 +75,15 @@ public class AuthorsRepository(LibraryDatabaseContext db) : IAuthorsRepository
     public bool IsNameUnique(string name)
     {
         return GetByNameAsync(name).GetAwaiter().GetResult() == null;
+    }
+
+    public void Attach(Author author)
+    {
+        db.Authors.Attach(author);
+    }
+
+    public void Attach(IEnumerable<Author> authors)
+    {
+        db.Authors.AttachRange(authors);
     }
 }

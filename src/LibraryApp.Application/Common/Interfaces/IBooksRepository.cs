@@ -12,4 +12,6 @@ public interface IBooksRepository
     public Task Update(Book book, CancellationToken token = default);
     public void Delete(Book book);
     public bool IsTitleUnique(string title);
+    public void Attach(Book book);
+    public void Attach(IEnumerable<Book> books);
 }

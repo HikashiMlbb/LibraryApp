@@ -20,6 +20,8 @@ public sealed class AddBookCommandHandler(IUnitOfWork uow) : IRequestHandler<Add
             author = await uow.Authors.GetByIdAsync((Guid)request.AuthorId, token);
             
             if (author is null) return AuthorErrors.IdNotFound;
+            
+            uow.Authors.Attach(author);
         }
         
         var book = new Book(
