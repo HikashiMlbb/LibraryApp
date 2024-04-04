@@ -25,7 +25,7 @@ dotnet ef database update -p src\LibraryApp.Infrastructure -s src\LibraryApp.API
 ## Running
 Execute cli command:
 ```bash
-dotnet run --project src\LibraryApp.API
+dotnet run --project src\LibraryApp.API -lp "http"
 ```
 ***
 # Endpoints info

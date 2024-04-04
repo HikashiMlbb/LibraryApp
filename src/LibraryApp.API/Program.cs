@@ -1,4 +1,3 @@
-using Carter;
 using LibraryApp.API.Extensions;
 using LibraryApp.Application;
 using LibraryApp.Infrastructure;
@@ -6,16 +5,24 @@ using LibraryApp.Infrastructure.Data;
 using LibraryApp.Persistence;
 using Microsoft.EntityFrameworkCore;
 
+const string defaultPolicy = "AllowLocalhost";
+
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddApplication();
 builder.Services.AddInfrastructure(builder.Configuration);
 builder.Services.AddPersistence();
 
-builder.Services.AddCarter();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddControllers();
+
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy(
+        defaultPolicy,
+        policy => policy.WithOrigins("http://localhost:3000").AllowAnyMethod().AllowAnyHeader());
+});
 
 var app = builder.Build();
 
@@ -36,6 +43,6 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseValidationExceptionHandler();
-app.MapCarter();
+app.UseCors(defaultPolicy);
 app.MapControllers();
 app.Run();
