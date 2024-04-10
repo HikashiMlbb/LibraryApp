@@ -6,8 +6,8 @@ public sealed class Author
     public const int MinNameLength = 3;
     
     public Guid Id { get; set; }
-    public string Name { get; set; }
-    public ICollection<Book> Books { get; set; }
+    public string Name { get; set; } = null!;
+    public ICollection<Book> Books { get; set; } = new List<Book>();
     public DateTime BirthDay { get; set; }
 
     public Author(Guid id, string name, DateTime birthDay, ICollection<Book>? books = null)

@@ -10,23 +10,18 @@ git clone https://github.com/HikashiMlbb/LibraryApp.Server.git
 ```bash
 cd LibraryApp.Server
 ```
-3. Restore dotnet dependencies:
+3. Build docker images with Docker:
 ```bash
-dotnet restore
+docker-compose build
 ```
-## Configuration
-1. Go to the `src\LibraryApp.API\appsettings.json` and edit `ConnectionStrings`
-2. Replace string `"SqlServer_Dev": "..."` with your own connection string.
-3. Go to the `src\LibraryApp.Infrastructure\DependencyInjection.cs` and replace value of `const string DefaultConnection` to your own.
-4. Create the database using cli command:
-```bash
-dotnet ef database update -p src\LibraryApp.Infrastructure -s src\LibraryApp.API
-```
+
 ## Running
 Execute cli command:
 ```bash
-dotnet run --project src\LibraryApp.API -lp "http"
+docker-compose up -d
 ```
+P.S.: If you don't want to attach your CLI to the app, you're recommended to use flag -d. However, remove flag -d if you WANT attach your CLI to the app.
+
 ***
 # Endpoints info
 |**Method**|**Endpoint**|**Description**           |

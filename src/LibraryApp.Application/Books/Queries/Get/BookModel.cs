@@ -7,7 +7,7 @@ namespace LibraryApp.Application.Books.Queries.Get;
 public sealed class BookModel : IMapWith<Book>
 {
     public Guid Id { get; set; }
-    public string Title { get; set; }
+    public string Title { get; set; } = null!;
     public string? Description { get; set; }
     public Guid? AuthorId { get; set; }
     public DateTime PublicationDate { get; set; }

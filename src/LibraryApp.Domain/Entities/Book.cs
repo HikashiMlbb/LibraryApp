@@ -5,7 +5,7 @@ namespace LibraryApp.Domain.Entities;
 public sealed class Book
 {
     public Guid Id { get; set; }
-    public BookHeader Header { get; set; }
+    public BookHeader Header { get; set; } = null!;
     public Author? Author { get; set; }
     public DateTime PublicationDate { get; set; }
 

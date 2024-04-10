@@ -1,0 +1,41 @@
+networks:
+  backend:
+    driver: bridge
+
+services:
+  web:
+    container_name: "aspnetweb"
+    restart: always
+    build:
+      context: .
+      dockerfile: src/LibraryApp.API/Dockerfile
+    ports:
+      - "80:8080"
+    depends_on: 
+      sqlserver:
+        condition: service_healthy
+    networks: 
+      - backend
+    env_file: 
+      - .env
+
+  sqlserver:
+    container_name: sqlserver
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    env_file:
+      - .env
+    ports:
+      - "1433:1433"
+    networks: 
+      - backend
+    healthcheck:
+      test: opt/mssql-tools/bin/sqlcmd -S localhost -U sa -P "saroot1234A$" -C
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 15s
+    volumes:
+      - sqlvolume:/var/opt/mssql
+
+volumes:
+  sqlvolume:
