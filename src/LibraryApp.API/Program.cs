@@ -9,8 +9,10 @@ const string defaultPolicy = "AllowLocalhost";
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Configuration.AddEnvironmentVariables();
+
 builder.Services.AddApplication();
-builder.Services.AddInfrastructure(builder.Configuration);
+builder.Services.AddInfrastructure(builder.Configuration, "SqlServer");
 builder.Services.AddPersistence();
 
 builder.Services.AddEndpointsApiExplorer();
@@ -30,7 +32,11 @@ var app = builder.Build();
 
 using (var scope = app.Services.CreateScope())
 {
-    scope.ServiceProvider.GetRequiredService<LibraryDatabaseContext>().Database.Migrate();
+    var db = scope.ServiceProvider.GetRequiredService<LibraryDatabaseContext>().Database;
+    if (!db.CanConnect()) 
+    {
+        db.Migrate();
+    }
 }
 
 #endregion
@@ -38,10 +44,10 @@ using (var scope = app.Services.CreateScope())
 if (app.Environment.IsDevelopment())
 {
     app.UseDeveloperExceptionPage();
-    app.UseSwagger();
-    app.UseSwaggerUI();
 }
 
+    app.UseSwagger();
+    app.UseSwaggerUI();
 app.UseValidationExceptionHandler();
 app.UseCors(defaultPolicy);
 app.MapControllers();
