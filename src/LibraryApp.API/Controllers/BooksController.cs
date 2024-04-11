@@ -54,7 +54,7 @@ public sealed class BooksController(IMediator mediator) : ControllerBase
     public async Task<IResult> Add([FromBody]AddBookCommand command, CancellationToken token)
     {
         var result = await mediator.Send(command, token);
-        return result.IsSuccess ? Results.Ok() : Results.BadRequest(result.Error);
+        return result.IsSuccess ? Results.Created() : Results.BadRequest(result.Error);
     }
     
     /// <summary>
@@ -72,7 +72,13 @@ public sealed class BooksController(IMediator mediator) : ControllerBase
     public async Task<IResult> Update([FromBody] UpdateBookCommand command, CancellationToken token)
     {
         var result = await mediator.Send(command, token);
-        return result.IsSuccess ? Results.Ok() : Results.BadRequest(result.Error);
+        if (result.IsFailure) 
+        {
+            return result.Error!.Code.Contains("NotFound")
+                ? Results.NotFound(result.Error)
+                : Results.BadRequest(result.Error);
+        }
+        return Results.NoContent();
     }
     
     /// <summary>

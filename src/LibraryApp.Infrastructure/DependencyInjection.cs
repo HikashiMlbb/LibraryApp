@@ -12,7 +12,7 @@ public static class DependencyInjection
     {
         services.AddDbContext<LibraryDatabaseContext>(opt =>
         {
-            opt.UseSqlServer(config.GetConnectionString(connection ?? DefaultConnection));
+            opt.UseSqlServer(config.GetConnectionString(connection ?? DefaultConnection)?.Replace("${MSSQL_SA_PASSWORD}", config["MSSQL_SA_PASSWORD"]));
         });
 
         return services;

@@ -46,8 +46,8 @@ if (app.Environment.IsDevelopment())
     app.UseDeveloperExceptionPage();
 }
 
-    app.UseSwagger();
-    app.UseSwaggerUI();
+app.UseSwagger();
+app.UseSwaggerUI();
 app.UseValidationExceptionHandler();
 app.UseCors(defaultPolicy);
 app.MapControllers();

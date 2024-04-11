@@ -101,6 +101,13 @@ public sealed class AuthorsController(IMediator mediator) : ControllerBase
     public async Task<IResult> Delete([FromBody]DeleteAuthorCommand command, CancellationToken token)
     {
         var result = await mediator.Send(command, token);
-        return result.IsSuccess ? Results.Ok() : Results.BadRequest(result.Error);
+
+        if (result.IsFailure)
+        {
+            return result.Error!.Code.Contains("NotFound")
+                ? Results.NotFound(result.Error)
+                : Results.BadRequest(result.Error);
+        }        
+        return Results.NoContent();
     }
 }
