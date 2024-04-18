@@ -17,8 +17,6 @@ RUN dotnet publish "LibraryApp.API.csproj" -c $BUILD_CONFIGURATION -o /app/publi
 
 FROM mcr.microsoft.com/dotnet/aspnet:8.0
 WORKDIR /app
-EXPOSE 8080
-EXPOSE 8081
-ENV ASPNETCORE_HTTP_PORTS=8080
+ENV ASPNETCORE_HTTP_PORTS=8001
 COPY --from=publish /app/publish .
 ENTRYPOINT ["dotnet", "LibraryApp.API.dll"]

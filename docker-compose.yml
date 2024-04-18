@@ -1,33 +1,50 @@
 networks:
-  backend:
+  app:
     driver: bridge
 
 services:
   web:
-    container_name: "aspnetweb"
+    container_name: "web"
+    restart: always
+    build: 
+      context: src/LibraryApp.Web
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"
+    depends_on:
+      - webapi
+    networks:
+      app:
+        aliases:
+          - "web"
+
+  webapi:
+    container_name: "webapi"
     restart: always
     build:
       context: .
       dockerfile: src/LibraryApp.API/Dockerfile
     ports:
-      - "80:8080"
+      - "8001:8001"
     depends_on: 
       sqlserver:
         condition: service_healthy
     networks: 
-      - backend
+      app:
+        aliases:
+          - "webapi"
     env_file: 
-      - .env
+      - backend.env
 
   sqlserver:
     container_name: sqlserver
     image: mcr.microsoft.com/mssql/server:2022-latest
     env_file:
-      - .env
+      - backend.env
     ports:
       - "1433:1433"
     networks: 
-      - backend
+      - app
     healthcheck:
       test: opt/mssql-tools/bin/sqlcmd -S localhost -U sa -P "saroot1234A$" -C
       interval: 10s
@@ -36,6 +53,21 @@ services:
       start_period: 15s
     volumes:
       - sqlvolume:/var/opt/mssql
+  
+  nginx:
+    container_name: ngnix
+    image: nginx:mainline
+    networks:
+      app:
+        aliases:
+          - "nginx"
+    links:
+      - "web:web"
+      - "webapi:webapi"
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf
+    ports:
+      - "80:80"
 
 volumes:
   sqlvolume:

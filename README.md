@@ -1,14 +1,14 @@
-# LibraryApp.Server
-Back-end project of Pet-application
+# LibraryApp
+A one of simple Pet-applications
 
 ## Installation
 1. Clone the github repository:
 ```bash
-git clone https://github.com/HikashiMlbb/LibraryApp.Server.git
+git clone https://github.com/HikashiMlbb/LibraryApp.git
 ```
 2. Change directory to the local repository:
 ```bash
-cd LibraryApp.Server
+cd LibraryApp
 ```
 3. Build docker images with Docker:
 ```bash

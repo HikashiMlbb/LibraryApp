@@ -1,5 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
+# 
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{FDD64E45-C7B5-470F-85E2-0A716B6B74DD}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{FEED1D30-ABA5-4893-938B-957FEB937917}"
@@ -14,6 +15,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LibraryApp.Application", "s
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LibraryApp.Persistence", "src\LibraryApp.Persistence\LibraryApp.Persistence.csproj", "{327994D8-A494-4F7C-9C7C-7DE9A25CA10D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LibraryApp.Web", "src\LibraryApp.Web\LibraryApp.Web.csproj", "{935965EE-DAAA-4021-970F-E5299DFB1A4E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -25,6 +28,7 @@ Global
 		{B8A689A1-0FD4-449C-8EF3-DA4AABE8EF1B} = {FDD64E45-C7B5-470F-85E2-0A716B6B74DD}
 		{1BB57AB6-1528-4A3E-A803-D87D724B3D36} = {FDD64E45-C7B5-470F-85E2-0A716B6B74DD}
 		{327994D8-A494-4F7C-9C7C-7DE9A25CA10D} = {FDD64E45-C7B5-470F-85E2-0A716B6B74DD}
+		{935965EE-DAAA-4021-970F-E5299DFB1A4E} = {FDD64E45-C7B5-470F-85E2-0A716B6B74DD}
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{48B07176-1963-4626-BE56-A9DD0F991B2B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -47,5 +51,9 @@ Global
 		{327994D8-A494-4F7C-9C7C-7DE9A25CA10D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{327994D8-A494-4F7C-9C7C-7DE9A25CA10D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{327994D8-A494-4F7C-9C7C-7DE9A25CA10D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{935965EE-DAAA-4021-970F-E5299DFB1A4E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{935965EE-DAAA-4021-970F-E5299DFB1A4E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{935965EE-DAAA-4021-970F-E5299DFB1A4E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{935965EE-DAAA-4021-970F-E5299DFB1A4E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
